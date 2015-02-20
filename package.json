@@ -1,0 +1,23 @@
+{
+  "name": "bloghub",
+  "version": "0.1.0",
+  "description": "Github driven blog",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/StephanHoyer/bloghub.git"
+  },
+  "keywords": [
+    "blog",
+    "github"
+  ],
+  "author": "Stephan Hoyer <ste.hoyer@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/StephanHoyer/bloghub/issues"
+  },
+  "homepage": "https://github.com/StephanHoyer/bloghub"
+}
