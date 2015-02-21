@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/StephanHoyer/bloghub",
   "dependencies": {
+    "domready": "^1.0.7",
+    "es6-promise": "^2.0.1",
     "github-api": "^0.10.3",
     "mithril": "^0.1.30"
   }
