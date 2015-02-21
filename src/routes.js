@@ -11,5 +11,6 @@ var home = {
 };
 
 module.exports = {
-  '/': home
+  '/': home,
+  '/post/create': require('./post/create')
 };

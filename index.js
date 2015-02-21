@@ -2032,7 +2032,7 @@ var m = require('mithril');
 
 var routes = require('./routes');
 
-m.route.mode = 'pathname';
+m.route.mode = 'hash';
 
 domready(function() {
   m.route(document.body , '/', routes);
@@ -2040,7 +2040,53 @@ domready(function() {
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./routes":"/Users/sh/Work/bloghub/src/routes.js","domready":"/Users/sh/Work/bloghub/node_modules/domready/ready.js","es6-promise":"/Users/sh/Work/bloghub/node_modules/es6-promise/dist/es6-promise.js","mithril":"/Users/sh/Work/bloghub/node_modules/mithril/mithril.js"}],"/Users/sh/Work/bloghub/src/routes.js":[function(require,module,exports){
+},{"./routes":"/Users/sh/Work/bloghub/src/routes.js","domready":"/Users/sh/Work/bloghub/node_modules/domready/ready.js","es6-promise":"/Users/sh/Work/bloghub/node_modules/es6-promise/dist/es6-promise.js","mithril":"/Users/sh/Work/bloghub/node_modules/mithril/mithril.js"}],"/Users/sh/Work/bloghub/src/post/create.js":[function(require,module,exports){
+'use strict';
+
+var m = require('mithril');
+
+module.exports = {
+  controller: function() {
+    var scope = {};
+
+    scope.post = {
+      slug: m.prop(''),
+      title: m.prop(''),
+      content: m.prop('')
+    };
+
+    scope.savePost = function() {
+      console.log(JSON.stringify(scope.post));
+      return false;
+    };
+
+    return scope;
+  },
+  view: function(scope) {
+    return [
+      m('h1', 'Create post'),
+      m('form', {
+        onsubmit: scope.savePost
+      }, [
+        m('input.title', {
+          value: scope.post.title(),
+          oninput: m.withAttr('value', scope.post.title),
+          placeholder: 'title'
+        }),
+        m('input.content', {
+          value: scope.post.content(),
+          oninput: m.withAttr('value', scope.post.content),
+          placeholder: 'content'
+        }),
+        m('input', {
+          type: 'submit',
+        })
+      ])
+    ];
+  }
+};
+
+},{"mithril":"/Users/sh/Work/bloghub/node_modules/mithril/mithril.js"}],"/Users/sh/Work/bloghub/src/routes.js":[function(require,module,exports){
 'use strict';
 
 var m =  require('mithril');
@@ -2054,10 +2100,11 @@ var home = {
 };
 
 module.exports = {
-  '/': home
+  '/': home,
+  '/post/create': require('./post/create')
 };
 
-},{"mithril":"/Users/sh/Work/bloghub/node_modules/mithril/mithril.js"}],"/usr/local/lib/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js":[function(require,module,exports){
+},{"./post/create":"/Users/sh/Work/bloghub/src/post/create.js","mithril":"/Users/sh/Work/bloghub/node_modules/mithril/mithril.js"}],"/usr/local/lib/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js":[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};

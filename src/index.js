@@ -9,7 +9,7 @@ var m = require('mithril');
 
 var routes = require('./routes');
 
-m.route.mode = 'pathname';
+m.route.mode = 'hash';
 
 domready(function() {
   m.route(document.body , '/', routes);
