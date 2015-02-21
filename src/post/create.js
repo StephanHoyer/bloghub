@@ -1,6 +1,7 @@
 'use strict';
 
 var m = require('mithril');
+var github = require('../github');
 
 module.exports = {
   controller: function() {
