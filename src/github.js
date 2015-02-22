@@ -37,38 +37,29 @@ function fetchReadme() {
   return repo.contents('README.md').readBinary().then(log);
 }
 
-function commitTree() {
-  return Promise.all([
-    repo.git.blobs.create({
-      content: 'Content of the blob' + new Date(),
+function commit(files, message) {
+  return Promise.all(files.map(function(file) {
+    return repo.git.blobs.create({
+      content: file.content,
       encoding: 'utf-8'
-    }),
-    repo.git.blobs.create({
-      content: 'Content of the blob 2' + new Date(),
-      encoding: 'utf-8'
-    })
-  ]).then(function(blobs) {
-    return fetchTree().then(function(tree) {
-      return {
-        blobs: blobs,
-        tree: tree
-      };
     });
-  }).then(function(data) {
-    return repo.git.trees.create({
-      tree: data.blobs.map(function(blob) {
-        return {
-          path: blob.sha + '.md',
-          mode: '100644',
-          type: 'blob',
-          sha: blob.sha
-        };
-      }),
-      base_tree: data.tree.sha
+  })).then(function(blobs) {
+    return fetchTree().then(function(tree) {
+      return repo.git.trees.create({
+        tree: files.map(function(file, index) {
+          return {
+            path: file.path,
+            mode: '100644',
+            type: 'blob',
+            sha: blobs[index].sha
+          };
+        }),
+        base_tree: tree.sha
+      });
     });
   }).then(function(tree) {
     return repo.git.commits.create({
-      message: 'Test commit of multiple files',
+      message: message,
       tree: tree.sha,
       parents: [
         head.object.sha
@@ -78,10 +69,16 @@ function commitTree() {
     return repo.git.refs.heads('master').update({
       sha: commit.sha
     });
-  }).then(log);
+  });
 }
 
-commitTree();
+commit([{
+  path: 'test/file1.md',
+  content: '# File1'
+}, {
+  path: 'test/file2.md',
+  content: '# File2'
+}], 'test commit via commit function').then(log);
 
 function commitOneFile() {
   return repo.contents('test.md').add({
