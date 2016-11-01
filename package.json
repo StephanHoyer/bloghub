@@ -23,10 +23,10 @@
   "dependencies": {
     "base-64": "^0.1.0",
     "domready": "^1.0.7",
-    "es6-promise": "^2.0.1",
-    "github-api": "^0.10.3",
-    "lodash": "^3.3.0",
-    "mithril": "^0.1.30",
+    "es6-promise": "^4.0.5",
+    "github-api": "^2.3.0",
+    "lodash": "^4.16.5",
+    "mithril": "^0.2.5",
     "octokat": "^0.4.6",
     "utf8": "^2.1.0"
   }
